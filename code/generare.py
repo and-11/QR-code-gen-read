@@ -1,11 +1,11 @@
+        # biblioteci folosite
 import re
 import math
 import numpy as np
 from PIL import Image
 
 
-#part2
-
+        # Convertim mesajul
 def get_byte_data(content, length_bits, data_codewords):
     data = np.zeros(data_codewords, dtype=np.uint8)
     right_shift = (4 + length_bits) & 7
@@ -625,10 +625,11 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
 
 # mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
 
-# print("Type text to encode:")
+print("Type text to encode:")
 mes = input()
+
 # mes = "test"
-# print( get_byte_data("test",8,4) )
+
 
 mat=get_new_matrix(2)
 mat=get_raw_qr_code(mes)
