@@ -1,4 +1,3 @@
-
 import re
 import math
 import numpy as np
@@ -7,7 +6,7 @@ from PIL import Image
 
 #part2
 
-# print(get_encoding_mode('https://www.qrcode.com/'))
+# print(get_encoding_mode(''))
 
 def get_byte_data(content, length_bits, data_codewords):
     data = np.zeros(data_codewords, dtype=np.uint8)
@@ -33,7 +32,7 @@ def get_byte_data(content, length_bits, data_codewords):
     return data
 
 
-#                                                       unul e dif
+
 # print(get_byte_data('https://www.qrcode.com/', 8, 28))
 
 
@@ -56,8 +55,6 @@ def mul(a, b):
 
 def div(a, b):
     return EXP[(int(LOG[a]) + int(LOG[b]) * 254) % 255]
-
-
 
 
 def poly_mul(poly1, poly2):
@@ -405,6 +402,9 @@ def get_masked_matrix(version, error_level):
         final_penalty = penalty
         final_matrix = matrix
 
+# debug <----- delete this
+    # final_matrix = get_masked_matrix_8(version)
+
     return final_matrix
             # ajsdbj asdjhas hdasb djhasbd hjasbd hjasbd hjasbdhj abjhdbas hjbda sbasjh bhjasdb hjsab asd hjasbdhjas dasjh
 
@@ -609,24 +609,31 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
     img = Image.new('RGB', (lenght * scale, lenght * scale), 'white')
     pixels = img.load()
 
-    for x in range(0,lenght):
-        for y in range(0,lenght):
-            if matrix[x][y] == 1 : 
+    for i in range(0,lenght):
+        for j in range(0,lenght):
+            if matrix[i][j] == 1 : 
                 c = (0, 0, 0) 
             else:
                 c = (255, 255, 255)
-            for i in range(0,scale):
-                for j in range(0,scale):
-                    pixels[y * scale + i, x * scale + j] = c
+            for a in range(0,scale):
+                for b in range(0,scale):
+                    pixels[j * scale + a, i * scale + b] = c
 
     img.save(output_file)
     print(f"QR code image saved as {output_file}")
     
     #           #    #           #    #           #    #           #    #           #    #           #    #           #    #           #
 
-mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
+# mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
 
 # mes = "test"
+
+
+mes = "a"
+
+
+
+
 
 mat=get_new_matrix(2)
 mat=get_raw_qr_code(mes)
