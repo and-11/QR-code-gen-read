@@ -6,20 +6,6 @@ from PIL import Image
 
 
 #part2
-NUMERIC_RE = re.compile(r'^\d*$')
-ALPHANUMERIC_RE = re.compile(r'^[\dA-Z $%*+\-./:]*$')
-LATIN1_RE = re.compile(r'^[\x00-\xff]*$')
-
-
-def get_encoding_mode(string):
-    if NUMERIC_RE.match(string):
-        return 0b0001
-    if ALPHANUMERIC_RE.match(string):
-        return 0b0010
-    if LATIN1_RE.match(string):
-        return 0b0100
-
-    return 0b0111
 
 # print(get_encoding_mode('https://www.qrcode.com/'))
 
@@ -135,10 +121,7 @@ def get_edc(data, codewords):
     message_poly = np.zeros(codewords, dtype=np.uint8)
     message_poly[:len(data)] = data  # Equivalent to `messagePoly.set(data, 0)`
     return poly_rest(message_poly, get_generator_poly(degree))
-# mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
-
-mes = "my suberek, did you drink watter today?"
-
+mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
 
 # dat = get_byte_data('https://www.qrcode.com/', 8, 28);
 # print( get_edc(dat, 44) )
