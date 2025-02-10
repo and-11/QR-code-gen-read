@@ -634,22 +634,21 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
          matrix[i].insert(0, 0)
          matrix[i].append (0)
 
-    if not matrix:
-        raise ValueError("The matrix is empty.")
-
-    height = len(matrix)
-    width = len(matrix[0])
+    lenght = len(matrix)
 
     # Create a new image with white background
-    img = Image.new('RGB', (width * scale, height * scale), 'white')
+    img = Image.new('RGB', (lenght * scale, lenght * scale), 'white')
     pixels = img.load()
 
-    for y in range(height):
-        for x in range(width):
-            color = (0, 0, 0) if matrix[y][x] == 1 else (255, 255, 255)
-            for i in range(scale):
-                for j in range(scale):
-                    pixels[x * scale + i, y * scale + j] = color
+    for y in range(0,lenght):
+        for x in range(0,lenght):
+            if matrix[y][x] == 1 : 
+                c = (0, 0, 0) 
+            else:
+                c = (255, 255, 255)
+            for i in range(0,scale):
+                for j in range(0,scale):
+                    pixels[x * scale + i, y * scale + j] = c
 
     img.save(output_file)
     print(f"QR code image saved as {output_file}")
@@ -657,6 +656,9 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
     #           #    #           #    #           #    #           #    #           #    #           #    #           #    #           #
 
 mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
+
+# mes = "test"
+
 mat=get_new_matrix(2)
 mat=get_raw_qr_code(mes)
 mat=get_raw_qr_code1(mes)
