@@ -6,8 +6,6 @@ from PIL import Image
 
 #part2
 
-# print(get_encoding_mode(''))
-
 def get_byte_data(content, length_bits, data_codewords):
     data = np.zeros(data_codewords, dtype=np.uint8)
     right_shift = (4 + length_bits) & 7
@@ -253,16 +251,18 @@ def first_penalty (matrix):
         for j in range (1, len(matrix)):
             if matrix[i][j] == matrix[i][j - 1]:
                 ct+=1
-            elif ct >= 5:
-                sum+=ct
+            else:
+                if ct >= 5:
+                    sum+=ct-2
                 ct= 1
     for i in range (len(matrix)): 
         ct =1
         for j in range (1, len(matrix)):
             if matrix[i][j] == matrix[i - 1][j]:
                 ct+=1
-            elif ct >= 5:
-                sum+=ct
+            else:
+                if ct >= 5:
+                    sum+=ct-2
                 ct= 1
     return sum
 
@@ -271,19 +271,18 @@ def second_penalty (matrix):
     for i in range (len(matrix) - 1):
         for j in range (len(matrix) - 1):
             if matrix[i][j] == matrix[i][j + 1] and matrix[i + 1][j] == matrix[i][j] and matrix[i + 1][j + 1] == matrix[i][j]:
-                sum += 2
+                sum += 3
     return sum
-
 def third_penalty (matrix):
     nrpat=0
     pat=[1,0,1,1,1,0,1,0,0,0,0]
     patrev=[0,0,0,0,1,0,1,1,1,0,1]
-    for i in range (len(matrix) - 1):
-        for j in range (len(matrix) - 12):
+    for i in range (len(matrix)):
+        for j in range (len(matrix) - 10):
             if matrix[i][j:j+10]==pat or matrix[i][j:j+10]==patrev:
                 nrpat=nrpat+1
-    for j in range (len(matrix) - 1):
-        for i in range (len(matrix) - 12):
+    for j in range (len(matrix)):
+        for i in range (len(matrix) - 10):
                     col_seg = [matrix[x][j] for x in range(i, i+11)]
                     if col_seg==pat or col_seg==patrev:
                         nrpat=nrpat+1
@@ -295,13 +294,14 @@ def third_penalty (matrix):
 def fourth_penalty (matrix):
     white=0
     black=0
-    for i in range (len(matrix) - 1):
-        for j in range (len(matrix) - 1):
+    for i in range (len(matrix)):
+        for j in range (len(matrix)):
             if matrix[i][j]==1:
                 black=black+1
             else:
                 white=white+1
-                             
+                
+                
     total=white+black
     darkpercent=(total//black)*100
     nextfive=(darkpercent-darkpercent%5+5)/5
@@ -329,9 +329,6 @@ def get_masked_matrix(version, error_level):
 
     final_matrix = matrix
     final_penalty = penalty
-
-
-   
 
 #   2
     matrix = get_masked_matrix_2(version)
@@ -403,7 +400,7 @@ def get_masked_matrix(version, error_level):
         final_matrix = matrix
 
 # debug <----- delete this
-    # final_matrix = get_masked_matrix_8(version)
+    # final_matrix = get_masked_matrix_1(version)
 
     return final_matrix
             # ajsdbj asdjhas hdasb djhasbd hjasbd hjasbd hjasbdhj abjhdbas hjbda sbasjh bhjasdb hjsab asd hjasbdhjas dasjh
@@ -499,8 +496,6 @@ def get_masked_matrix_8(version):
                     # print()
     return matrix
 
-
-
 #asjkdasjd asdhjsa dhjasd hjabsd asjhdashj bdashjbd hjasbd jasbd hjsabdjhbas jhdbashjbd hjasbd ashj
 
 
@@ -555,6 +550,7 @@ def place_fixed_patterns(matrix):
     
     # Dark module
     matrix[size - 8][8] = 1
+
 def place_format_modules(matrix, error_level, mask_index):
     format_modules = get_format_modules(error_level, mask_index)
     matrix[8][:6] = format_modules[:6]
@@ -573,7 +569,6 @@ def get_masked_qr_code(version, error_level):
     return matrix
 
 def get_raw_qr_code1(message):
-    # One day, we'll compute these values. But not today!
     VERSION = 3
     TOTAL_CODEWORDS = 70
     LENGTH_BITS = 8
@@ -594,6 +589,10 @@ def get_raw_qr_code1(message):
 
 
 def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
+
+    bl=matrix[8][9]
+    matrix[8][9:20]=matrix[8][10:21]
+    matrix[8][20]=bl
 
     lenght = len(matrix)
     
@@ -620,22 +619,19 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
                     pixels[j * scale + a, i * scale + b] = c
 
     img.save(output_file)
-    print(f"QR code image saved as {output_file}")
+    print(f"Done! Saved as {output_file}")
     
     #           #    #           #    #           #    #           #    #           #    #           #    #           #    #           #
 
 # mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
 
+# print("Type text to encode:")
+mes = input()
 # mes = "test"
-
-
-mes = "a"
-
-
-
-
+# print( get_byte_data("test",8,4) )
 
 mat=get_new_matrix(2)
 mat=get_raw_qr_code(mes)
 mat=get_raw_qr_code1(mes)
+
 matrix_to_qrcode(mat) 
