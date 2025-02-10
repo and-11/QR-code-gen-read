@@ -26,7 +26,7 @@ Codare:
 
 Decodare:
 
-     Decodeaza coduri qr cu versiunea intre 1 si 3, date ca o matrice de 1 si 0 in input.txt
+     Merge pentru coduri qr cu versiunea 1, 2 sau 3. Comanda folosire: python3 decode.py Se da ca input numele fisierului cu imaginea (ex: codeqr.png) Imaginea trebuie sa fie in fisierul cu scriptul.
 
 
 Referinte:
