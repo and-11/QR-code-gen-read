@@ -1,11 +1,10 @@
-        # biblioteci folosite
+# biblioteci folosite
 import re
 import math
 import numpy as np
 from PIL import Image
 
-
-        # Convertim mesajul
+# Convertim mesajul
 def get_byte_data(content, length_bits, data_codewords):
     data = np.zeros(data_codewords, dtype=np.uint8)
     right_shift = (4 + length_bits) & 7
@@ -34,7 +33,6 @@ def get_byte_data(content, length_bits, data_codewords):
 # print(get_byte_data('https://www.qrcode.com/', 8, 28))
 
 
-#part3          -_--------------------------------------------------------------------_>>>
 LOG = np.zeros(256, dtype=np.uint8)
 EXP = np.zeros(256, dtype=np.uint8)
 
@@ -56,15 +54,13 @@ def div(a, b):
 
 
 def poly_mul(poly1, poly2):
-    # Allocate result polynomial array with length (len(poly1) + len(poly2) - 1)
+
     coeffs = np.zeros(len(poly1) + len(poly2) - 1, dtype=np.uint8)
 
-    # Compute coefficients of the result polynomial
     for index in range(len(coeffs)):
         coeff = 0
         for p1_index in range(index + 1):
             p2_index = index - p1_index
-            # Ensure indices are within bounds before multiplication
             if p1_index < len(poly1) and p2_index < len(poly2):
                 coeff ^= mul(poly1[p1_index], poly2[p2_index])
         coeffs[index] = coeff
@@ -74,18 +70,17 @@ def poly_mul(poly1, poly2):
 
 def poly_rest(dividend, divisor):
     quotient_length = len(dividend) - len(divisor) + 1
-    # Initialize the remainder as a copy of the dividend
+
     rest = np.array(dividend, dtype=np.uint8)
 
     for _ in range(quotient_length):
-        # If the first term is 0, skip this iteration
         if rest[0]:
             factor = div(rest[0], divisor[0])
             subtr = np.zeros(len(rest), dtype=np.uint8)
             subtr[:len(divisor)] = poly_mul(divisor, [factor])
-            rest = np.bitwise_xor(rest, subtr)[1:]  # XOR and remove first element
+            rest = np.bitwise_xor(rest, subtr)[1:] 
         else:
-            rest = rest[1:]  # Remove first element
+            rest = rest[1:]  
 
     return rest
 
@@ -101,13 +96,12 @@ def get_generator_poly(degree):
 def get_edc(data, codewords):
     degree = codewords - len(data)
     message_poly = np.zeros(codewords, dtype=np.uint8)
-    message_poly[:len(data)] = data  # Equivalent to `messagePoly.set(data, 0)`
+    message_poly[:len(data)] = data  
     return poly_rest(message_poly, get_generator_poly(degree))
 
 # dat = get_byte_data('https://www.qrcode.com/', 8, 28);
 # print( get_edc(dat, 44) )
 
-#part 4
 def get_size(version):
     return version * 4 + 17
 
@@ -130,8 +124,6 @@ def get_module_sequence(version):
     fill_area(matrix, 0, 0, 9, 9)
     fill_area(matrix, 0, size - 8, 8, 9)
     fill_area(matrix, size - 8, 0, 9, 8)
-    # Alignment pattern - yes, we just place one. For the general
-    # implementation, wait for the next parts in the series!
     fill_area(matrix, size - 9, size - 9, 5, 5)
     # Timing patterns
     fill_area(matrix, 6, 9, version * 4, 1)
@@ -147,7 +139,7 @@ def get_module_sequence(version):
     while column >= 0:
         if matrix[row][column] == 0:
             sequence.append((row, column))
-        # Checking the parity of the index of the current module
+
         if index & 1:
             row += row_step
             if row == -1 or row == size:
@@ -165,17 +157,15 @@ def get_module_sequence(version):
 # x= get_module_sequence(2)
 # print( type(x[1][1]) )
 
-
 # print( get_module_sequence(2) )
 
 def get_raw_qr_code(message):
-    # One day, we'll compute these values. But not today!
     VERSION = 3
     TOTAL_CODEWORDS =70
     LENGTH_BITS = 8
     DATA_CODEWORDS = 55
 
-    codewords = [0]*TOTAL_CODEWORDS                                         # dif dar pare ok
+    codewords = [0]*TOTAL_CODEWORDS                                         # diferot 
     byte_data = get_byte_data(message, LENGTH_BITS, DATA_CODEWORDS)
     codewords[:len(byte_data)] = byte_data
     codewords[DATA_CODEWORDS:] = get_edc(byte_data, TOTAL_CODEWORDS)
@@ -184,7 +174,6 @@ def get_raw_qr_code(message):
     qr_code = get_new_matrix(VERSION)
     module_sequence = get_module_sequence(VERSION)
 
-    # Placing the fixed patterns
     # Finder patterns
     for row, col in [[0, 0], [size - 7, 0], [0, size - 7]]:
         fill_area(qr_code, row, col, 7, 7)
@@ -219,7 +208,7 @@ def get_raw_qr_code(message):
     # Placing message and error data
     index = 0
     for codeword in codewords:
-        # Counting down from the leftmost bit
+
         for shift in range(7, -1, -1):
             bit = (codeword >> shift) & 1
             row, column = module_sequence[index]
@@ -231,7 +220,6 @@ def get_raw_qr_code(message):
 
                                 #                           da skip cum trebuie la formaturi
 
-#part 5
 
 def inside( x,seq):        
     for y in seq:
@@ -604,7 +592,6 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
 
     lenght = lenght+2
 
-    # Create a new image with white background
     img = Image.new('RGB', (lenght * scale, lenght * scale), 'white')
     pixels = img.load()
 
@@ -628,11 +615,9 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
 print("Type text to encode:")
 mes = input()
 
-# mes = "test"
-
-
 mat=get_new_matrix(3)
 mat=get_raw_qr_code(mes)
 mat=get_raw_qr_code1(mes)
 
 matrix_to_qrcode(mat) 
+#sad asd  
