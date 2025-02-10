@@ -9,28 +9,15 @@ from PIL import Image
 
 # print(get_encoding_mode('https://www.qrcode.com/'))
 
-LENGTH_BITS = [
-    [10, 12, 14],
-    [9, 11, 13],
-    [8, 16, 16]
-]
-
-def get_length_bits(mode, version):
-    mode_index = 31 - (mode.bit_length() - 1)
-    bits_index = 2 if version > 26 else 1 if version > 9 else 0
-    return LENGTH_BITS[mode_index][bits_index]
-
-
 def get_byte_data(content, length_bits, data_codewords):
     data = np.zeros(data_codewords, dtype=np.uint8)
     right_shift = (4 + length_bits) & 7
     left_shift = 8 - right_shift
     and_mask = (1 << right_shift) - 1
-    data_index_start = 2 if length_bits > 12 else 1
+    data_index_start = 1
 
     data[0] = 64 + (len(content) >> (length_bits - 4))
-    if length_bits > 12:
-        data[1] = (len(content) >> right_shift) & 255
+   
     data[data_index_start] = (len(content) & and_mask) << left_shift
 
     for index in range(len(content)):
@@ -620,35 +607,30 @@ def get_raw_qr_code1(message):
 
 
 def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
-    """
-    Converts a 0/1 matrix to a QR code-like image.
 
-    :param matrix: 2D list containing 0s and 1s
-    :param scale: Size of each pixel block
-    :param output_file: Name of the output image file
-    """
-
-    matrix.insert(0, [0 for _ in range(len(matrix[0]) + 2)])
-    matrix.append ([0 for _ in range (len(matrix[0]))])
+    lenght = len(matrix)
+    
+    matrix.insert(0, [0 for x in range(len(matrix[0]) + 2)])
+    matrix.append ([0 for x in range (len(matrix[0]))])
     for i in range (1, len(matrix) - 1):
          matrix[i].insert(0, 0)
          matrix[i].append (0)
 
-    lenght = len(matrix)
+    lenght = lenght+2
 
     # Create a new image with white background
     img = Image.new('RGB', (lenght * scale, lenght * scale), 'white')
     pixels = img.load()
 
-    for y in range(0,lenght):
-        for x in range(0,lenght):
-            if matrix[y][x] == 1 : 
+    for x in range(0,lenght):
+        for y in range(0,lenght):
+            if matrix[x][y] == 1 : 
                 c = (0, 0, 0) 
             else:
                 c = (255, 255, 255)
             for i in range(0,scale):
                 for j in range(0,scale):
-                    pixels[x * scale + i, y * scale + j] = c
+                    pixels[y * scale + i, x * scale + j] = c
 
     img.save(output_file)
     print(f"QR code image saved as {output_file}")
