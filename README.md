@@ -19,7 +19,7 @@ Codare:
 
     Folosim Reed Solomon pentru a genera si partea de error corection
 
-    Punem mesajul nostru intr-o matrice echivalenta cu viitorul nostru cod qr si ii adaugam elementele standar ale unui cod qr
+    Punem mesajul nostru intr-o matrice echivalenta cu viitorul nostru cod qr si ii adaugam elementele standard ale unui cod qr
 
     Aplicam cele 8 masti posibile pe matricea noastra si o alegem pe cea cu scor de penalizare cat mai mic
 
