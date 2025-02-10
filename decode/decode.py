@@ -55,6 +55,7 @@ mat=png_to_binary_matrix(imgpath,target_size=31)
 display(mat)
 mat=debordare(mat)
 
+#pentru citire din fisier
 # mat=[]
 # with open('input.txt','r') as file:
 #     for line in file:
