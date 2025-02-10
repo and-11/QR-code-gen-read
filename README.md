@@ -1,3 +1,11 @@
+Echipa: Moldova_talpa_Power
+    Airinei Gabriel-Vlad 152
+    Buzdugan Ioan-Michael 152
+    Turcu Andrei-Cristian 152
+    
+
+
+
 Codare:
 
     fisierul cere un text ce urmeaza a fi codat intr-un cod qr si il salveaza in fisierul qrcode.png
