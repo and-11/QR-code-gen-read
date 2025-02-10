@@ -121,7 +121,6 @@ def get_edc(data, codewords):
     message_poly = np.zeros(codewords, dtype=np.uint8)
     message_poly[:len(data)] = data  # Equivalent to `messagePoly.set(data, 0)`
     return poly_rest(message_poly, get_generator_poly(degree))
-mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
 
 # dat = get_byte_data('https://www.qrcode.com/', 8, 28);
 # print( get_edc(dat, 44) )
@@ -134,7 +133,6 @@ def get_new_matrix(version):
     length = get_size(version)  
     return [[0] * length for _ in range(length)]
 #afisare
-mat=get_new_matrix(2)
 
 
 def fill_area(matrix, row, column, width, height, fill=1):
@@ -181,7 +179,7 @@ def get_module_sequence(version):
         index += 1
     return sequence
 
-print(len(get_module_sequence(3)))
+# print(len(get_module_sequence(3)))
 # x= get_module_sequence(2)
 # print( type(x[1][1]) )
 
@@ -249,7 +247,6 @@ def get_raw_qr_code(message):
     return qr_code
 
 
-mat=get_raw_qr_code(mes)
                                 #                           da skip cum trebuie la formaturi
 
 #part 5
@@ -620,7 +617,6 @@ def get_raw_qr_code1(message):
     qr_code=get_masked_qr_code(VERSION,codewords,'L')
     return qr_code
     
-mat=get_raw_qr_code1(mes)
 
 
 def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
@@ -660,4 +656,8 @@ def matrix_to_qrcode(matrix, scale=10, output_file='qrcode.png'):
     
     #           #    #           #    #           #    #           #    #           #    #           #    #           #    #           #
 
+mes='https://cs.unibuc.ro/~crusu/asc/lectures.html'                                                           # sadkasdasd
+mat=get_new_matrix(2)
+mat=get_raw_qr_code(mes)
+mat=get_raw_qr_code1(mes)
 matrix_to_qrcode(mat) 
