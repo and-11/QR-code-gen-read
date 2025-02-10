@@ -238,18 +238,6 @@ def get_raw_qr_code(message):
 
 #part 5
 
-# MASK_FNS = [
-#     lambda row, column: ((row + column) & 1) == 0,
-#     lambda row, column: (row & 1) == 0,
-#     lambda row, column: column % 3 == 0,
-#     lambda row, column: (row + column) % 3 == 0,
-#     lambda row, column: (((row >> 1) + (column // 3)) & 1) == 0,
-#     lambda row, column: ((row * column) & 1) + ((row * column) % 3) == 0,
-#     lambda row, column: ((((row * column) & 1) + ((row * column) % 3)) & 1) == 0,
-#     lambda row, column: ((((row + column) & 1) + ((row * column) % 3)) & 1) == 0,
-# ]
-
-
 def inside( x,seq):        
     for y in seq:
         if y == x :
@@ -316,8 +304,7 @@ def fourth_penalty (matrix):
                 black=black+1
             else:
                 white=white+1
-                
-                
+                             
     total=white+black
     darkpercent=(total//black)*100
     nextfive=(darkpercent-darkpercent%5+5)/5
@@ -335,10 +322,10 @@ def calculate_penalty(matrix):
                             #a asjknda sjkdasj dnaskjdn askjdn asjkndask jdjkas dnasj dkasjkd askjd as
 
 
-def get_masked_matrix(version, codewords, error_level):
+def get_masked_matrix(version, error_level):
 
 #   1
-    matrix = get_masked_matrix_1(version, codewords)
+    matrix = get_masked_matrix_1(version)
     place_format_modules(matrix, error_level, 0)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -350,7 +337,7 @@ def get_masked_matrix(version, codewords, error_level):
    
 
 #   2
-    matrix = get_masked_matrix_2(version, codewords)
+    matrix = get_masked_matrix_2(version)
     place_format_modules(matrix, error_level,1)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -359,7 +346,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_penalty = penalty
         final_matrix = matrix
 #   3
-    matrix = get_masked_matrix_3(version, codewords)
+    matrix = get_masked_matrix_3(version)
     place_format_modules(matrix, error_level, 2)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -369,7 +356,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_matrix = matrix
 
 #   4
-    matrix = get_masked_matrix_4(version, codewords)
+    matrix = get_masked_matrix_4(version)
     place_format_modules(matrix, error_level,3)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -379,7 +366,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_matrix = matrix
 
 #   5
-    matrix = get_masked_matrix_5(version, codewords)
+    matrix = get_masked_matrix_5(version)
     place_format_modules(matrix, error_level, 4)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -389,7 +376,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_matrix = matrix
 
 #   6
-    matrix = get_masked_matrix_6(version, codewords)
+    matrix = get_masked_matrix_6(version)
     place_format_modules(matrix, error_level, 5)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -399,7 +386,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_matrix = matrix
 
 #   7
-    matrix = get_masked_matrix_7(version, codewords)
+    matrix = get_masked_matrix_7(version)
     place_format_modules(matrix, error_level, 6)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -409,7 +396,7 @@ def get_masked_matrix(version, codewords, error_level):
         final_matrix = matrix
 
 #   8
-    matrix = get_masked_matrix_8(version, codewords)
+    matrix = get_masked_matrix_8(version)
     place_format_modules(matrix, error_level, 7)
     place_fixed_patterns(matrix)
     penalty = calculate_penalty(matrix)
@@ -423,7 +410,7 @@ def get_masked_matrix(version, codewords, error_level):
 
 
 
-def get_masked_matrix_1(version, codewords):
+def get_masked_matrix_1(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -434,7 +421,7 @@ def get_masked_matrix_1(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_2(version, codewords):
+def get_masked_matrix_2(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -445,7 +432,7 @@ def get_masked_matrix_2(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_3(version, codewords):
+def get_masked_matrix_3(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -456,7 +443,7 @@ def get_masked_matrix_3(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_4(version, codewords):
+def get_masked_matrix_4(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -467,7 +454,7 @@ def get_masked_matrix_4(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_5(version, codewords):
+def get_masked_matrix_5(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -478,7 +465,7 @@ def get_masked_matrix_5(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_6(version, codewords):
+def get_masked_matrix_6(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -489,7 +476,7 @@ def get_masked_matrix_6(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_7(version, codewords):
+def get_masked_matrix_7(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -500,7 +487,7 @@ def get_masked_matrix_7(version, codewords):
                     matrix[i][j] = mat[i][j]^1
                     # print()
     return matrix
-def get_masked_matrix_8(version, codewords):
+def get_masked_matrix_8(version):
     sequence = get_module_sequence(version)
     matrix = get_new_matrix(version)
     for i in range (len (matrix)):
@@ -579,8 +566,8 @@ def place_format_modules(matrix, error_level, mask_index):
     for index, cell in enumerate(format_modules[9:]):
         matrix[5 - index][8] = cell
         
-def get_masked_qr_code(version, codewords, error_level):
-    matrix = get_masked_matrix(version, codewords, error_level)
+def get_masked_qr_code(version, error_level):
+    matrix = get_masked_matrix(version, error_level)
     # place_format_modules(matrix, error_level, mask_index)
     # place_fixed_patterns(matrix)
     return matrix
@@ -601,7 +588,7 @@ def get_raw_qr_code1(message):
     qr_code = get_new_matrix(VERSION)
     module_sequence = get_module_sequence(VERSION)
     
-    qr_code=get_masked_qr_code(VERSION,codewords,'L')
+    qr_code=get_masked_qr_code(VERSION,'L')
     return qr_code
     
 
