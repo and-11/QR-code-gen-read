@@ -23,6 +23,8 @@ Codare:
 
     Aplicam cele 8 masti posibile pe matricea noastra si o alegem pe cea cu scor de penalizare cat mai mic
 
+    La final din matricea generata binar o trnsformam intr un png
+
 
 
 Decodare:
