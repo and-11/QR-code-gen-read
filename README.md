@@ -21,3 +21,8 @@ Decodare:
     Decodeaza coduri qr cu versiunea intre 1 si 3, date ca o matrice de 1 si 0 in input.txt
 
 
+Referinte:
+https://www.thonky.com/qr-code-tutorial/introduction
+https://www.nayuki.io/page/creating-a-qr-code-step-by-step
+https://dev.to/maxart2501/let-s-develop-a-qr-code-generator-part-i-basic-concepts-510a
+https://www.youtube.com/watch?v=w5ebcowAJD8
