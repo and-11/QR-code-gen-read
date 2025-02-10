@@ -631,7 +631,7 @@ mes = input()
 # mes = "test"
 
 
-mat=get_new_matrix(2)
+mat=get_new_matrix(3)
 mat=get_raw_qr_code(mes)
 mat=get_raw_qr_code1(mes)
 
