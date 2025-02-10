@@ -1,4 +1,5 @@
 Echipa: Moldova_talpa_Power
+
     Airinei Gabriel-Vlad 152
     Buzdugan Ioan-Michael 152
     Turcu Andrei-Cristian 152
