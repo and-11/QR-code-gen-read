@@ -1,5 +1,3 @@
-# decodeqr
-
 Codare:
 
     fisierul cere un text ce urmeaza a fi codat intr-un cod qr si il salveaza in fisierul qrcode.png
@@ -20,6 +18,6 @@ Codare:
 
 Decodare:
 
-Decodeaza coduri qr cu versiunea intre 1 si 3, date ca o matrice de 1 si 0 in input.txt
+    Decodeaza coduri qr cu versiunea intre 1 si 3, date ca o matrice de 1 si 0 in input.txt
 
 
